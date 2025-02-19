@@ -20,6 +20,7 @@
     <ProjectReference Include="..\dotnetexam.client\dotnetexam.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\DotNetExam.Data\DotNetExam.Data.csproj" />
   </ItemGroup>
 
 </Project>
