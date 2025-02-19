@@ -47,6 +47,10 @@ namespace DotNetExam.Data
                 .HasOne(ca => ca.Articulo)
                 .WithMany(a => a.Compradores)
                 .HasForeignKey(ca => ca.ArticuloId);
+
+            modelBuilder.Entity<Articulo>()
+                .Property(a => a.Precio)
+                .HasPrecision(18, 2);
         }
     }
 }
