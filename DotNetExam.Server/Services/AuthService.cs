@@ -1,6 +1,8 @@
 ﻿using DotNetExam.Business.Services.Interfaces;
 using DotNetExam.Data;
+using DotNetExam.Data.Models;
 using DotNetExam.Entities.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -41,7 +43,7 @@ public class AuthService : IAuthService
         return tokenHandler.WriteToken(token);
     }
 
-    public void Register(Usuario usuario, string password)
+    public void Register(Usuario usuario, string password, string apellidos, string direccion)
     {
         byte[] passwordHash, passwordSalt;
         CreatePasswordHash(password, out passwordHash, out passwordSalt);
@@ -50,6 +52,20 @@ public class AuthService : IAuthService
 
         _context.Usuarios.Add(usuario);
         _context.SaveChanges();
+        var cliente = new Cliente
+        {
+            Id = usuario.Id != 0 ? usuario.Id : GetNextClienteId(),
+            Nombre = usuario.Nombre,
+            Apellidos = apellidos,
+            Direccion = direccion
+        };
+        _context.Clientes.Add(cliente);
+        _context.SaveChanges();
+
+    }
+    private int GetNextClienteId()
+    {
+        return (_context.Clientes.Max(c => (int?)c.Id) ?? 0) + 1;
     }
 
     private bool VerifyPasswordHash(string password, byte[] storedHash, byte[] storedSalt)

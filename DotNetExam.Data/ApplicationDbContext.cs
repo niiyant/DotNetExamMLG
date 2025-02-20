@@ -22,6 +22,10 @@ namespace DotNetExam.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Cliente>()
+                .Property(c => c.Id)
+                .ValueGeneratedNever();
+
             // Configurar la relación muchos a muchos entre Tienda y Articulo
             modelBuilder.Entity<TiendaArticulo>()
                 .HasKey(ta => new { ta.TiendaId, ta.ArticuloId });

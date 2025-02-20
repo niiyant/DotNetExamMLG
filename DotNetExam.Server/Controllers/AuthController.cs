@@ -18,13 +18,21 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public IActionResult Register([FromBody] RegisterRequest request)
     {
-        var usuario = new Usuario
+        try
         {
-            Nombre = request.Nombre,
-            Email = request.Email
-        };
-        _authService.Register(usuario, request.Password);
-        return Ok(new { message = "Usuario registrado exitosamente" });
+            var usuario = new Usuario
+            {
+                Nombre = request.Nombre,
+                Email = request.Email
+            };
+
+            _authService.Register(usuario, request.Password, request.Apellidos, request.Direccion);
+            return Ok(new { message = "Usuario registrado exitosamente" });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
     }
 
     [HttpPost("login")]
@@ -41,6 +49,8 @@ public class AuthController : ControllerBase
 public class RegisterRequest
 {
     public string Nombre { get; set; }
+    public string Apellidos { get; set; }
+    public string Direccion { get; set; }
     public string Email { get; set; }
     public string Password { get; set; }
 }
