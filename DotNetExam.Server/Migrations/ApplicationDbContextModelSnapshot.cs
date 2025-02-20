@@ -95,10 +95,7 @@ namespace DotNetExam.Business.Migrations
             modelBuilder.Entity("DotNetExam.Data.Models.Cliente", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Apellidos")
                         .IsRequired()
@@ -192,25 +189,25 @@ namespace DotNetExam.Business.Migrations
                         {
                             TiendaId = 1,
                             ArticuloId = 1,
-                            Fecha = new DateTime(2025, 2, 20, 15, 48, 44, 729, DateTimeKind.Local).AddTicks(3278)
+                            Fecha = new DateTime(2025, 2, 20, 16, 47, 49, 788, DateTimeKind.Local).AddTicks(9024)
                         },
                         new
                         {
                             TiendaId = 1,
                             ArticuloId = 2,
-                            Fecha = new DateTime(2025, 2, 20, 15, 48, 44, 729, DateTimeKind.Local).AddTicks(3288)
+                            Fecha = new DateTime(2025, 2, 20, 16, 47, 49, 788, DateTimeKind.Local).AddTicks(9035)
                         },
                         new
                         {
                             TiendaId = 2,
                             ArticuloId = 3,
-                            Fecha = new DateTime(2025, 2, 20, 15, 48, 44, 729, DateTimeKind.Local).AddTicks(3290)
+                            Fecha = new DateTime(2025, 2, 20, 16, 47, 49, 788, DateTimeKind.Local).AddTicks(9036)
                         },
                         new
                         {
                             TiendaId = 2,
                             ArticuloId = 4,
-                            Fecha = new DateTime(2025, 2, 20, 15, 48, 44, 729, DateTimeKind.Local).AddTicks(3291)
+                            Fecha = new DateTime(2025, 2, 20, 16, 47, 49, 788, DateTimeKind.Local).AddTicks(9037)
                         });
                 });
 

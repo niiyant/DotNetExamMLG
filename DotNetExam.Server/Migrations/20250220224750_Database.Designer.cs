@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DotNetExam.Business.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250219232759_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250220224750_Database")]
+    partial class Database
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -55,15 +55,50 @@ namespace DotNetExam.Business.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Articulos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Codigo = "ART001",
+                            Descripcion = "Laptop",
+                            Imagen = "https://http2.mlstatic.com/D_NQ_NP_869818-MLU77724314601_072024-O.webp",
+                            Precio = 1500.00m,
+                            Stock = 10
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Codigo = "ART002",
+                            Descripcion = "Smartphone",
+                            Imagen = "https://http2.mlstatic.com/D_NQ_NP_877416-CBT77139740446_062024-O.webp",
+                            Precio = 800.00m,
+                            Stock = 20
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Codigo = "ART003",
+                            Descripcion = "Tablet",
+                            Imagen = "https://http2.mlstatic.com/D_NQ_NP_709058-MLU78169795366_082024-O.webp",
+                            Precio = 400.00m,
+                            Stock = 15
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Codigo = "ART004",
+                            Descripcion = "Monitor",
+                            Imagen = "https://http2.mlstatic.com/D_NQ_NP_886158-MLA46737528644_072021-O.webp",
+                            Precio = 250.00m,
+                            Stock = 25
+                        });
                 });
 
             modelBuilder.Entity("DotNetExam.Data.Models.Cliente", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Apellidos")
                         .IsRequired()
@@ -119,6 +154,20 @@ namespace DotNetExam.Business.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tiendas");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Direccion = "Calle 123",
+                            Sucursal = "Tienda A"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Direccion = "Avenida 456",
+                            Sucursal = "Tienda B"
+                        });
                 });
 
             modelBuilder.Entity("DotNetExam.Data.Models.TiendaArticulo", b =>
@@ -137,6 +186,61 @@ namespace DotNetExam.Business.Migrations
                     b.HasIndex("ArticuloId");
 
                     b.ToTable("TiendaArticulos");
+
+                    b.HasData(
+                        new
+                        {
+                            TiendaId = 1,
+                            ArticuloId = 1,
+                            Fecha = new DateTime(2025, 2, 20, 16, 47, 49, 788, DateTimeKind.Local).AddTicks(9024)
+                        },
+                        new
+                        {
+                            TiendaId = 1,
+                            ArticuloId = 2,
+                            Fecha = new DateTime(2025, 2, 20, 16, 47, 49, 788, DateTimeKind.Local).AddTicks(9035)
+                        },
+                        new
+                        {
+                            TiendaId = 2,
+                            ArticuloId = 3,
+                            Fecha = new DateTime(2025, 2, 20, 16, 47, 49, 788, DateTimeKind.Local).AddTicks(9036)
+                        },
+                        new
+                        {
+                            TiendaId = 2,
+                            ArticuloId = 4,
+                            Fecha = new DateTime(2025, 2, 20, 16, 47, 49, 788, DateTimeKind.Local).AddTicks(9037)
+                        });
+                });
+
+            modelBuilder.Entity("DotNetExam.Entities.Models.Usuario", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Usuarios");
                 });
 
             modelBuilder.Entity("DotNetExam.Data.Models.ClienteArticulo", b =>
