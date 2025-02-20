@@ -32,7 +32,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
-        sqlServerOptions => sqlServerOptions.MigrationsAssembly("DotNetExam.Server")));
+        sqlServerOptions => sqlServerOptions.MigrationsAssembly("DotNetExam.Business")));
 
 builder.Services.AddScoped<ITiendaService, TiendaService>();
 builder.Services.AddScoped<IArticuloService, ArticuloService>();
