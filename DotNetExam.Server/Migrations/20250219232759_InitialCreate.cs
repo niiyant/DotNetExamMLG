@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace DotNetExam.Server.Migrations
+namespace DotNetExam.Business.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration

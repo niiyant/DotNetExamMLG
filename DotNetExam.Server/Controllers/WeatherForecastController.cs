@@ -1,7 +1,7 @@
 ﻿using DotNetExam.Business;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DotNetExam.Server.Controllers
+namespace DotNetExam.Business.Controllers
 {
     [ApiController]
     [Route("[controller]")]
