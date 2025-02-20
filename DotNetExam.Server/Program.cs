@@ -1,3 +1,5 @@
+using DotNetExam.Business.Services;
+using DotNetExam.Business.Services.Interfaces;
 using DotNetExam.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,7 +15,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
         sqlServerOptions => sqlServerOptions.MigrationsAssembly("DotNetExam.Server")));
 
-
+builder.Services.AddScoped<ITiendaService, TiendaService>();
+builder.Services.AddScoped<IArticuloService, ArticuloService>();
+builder.Services.AddScoped<IClienteService, ClienteService>();
 var app = builder.Build();
 
 app.UseDefaultFiles();
