@@ -15,4 +15,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DotNetExam.Entities\DotNetExam.Entities.csproj" />
+  </ItemGroup>
+
 </Project>
