@@ -1,4 +1,4 @@
-namespace DotNetExam.Server
+namespace DotNetExam.Business
 {
     public class WeatherForecast
     {

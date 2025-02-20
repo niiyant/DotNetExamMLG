@@ -5,7 +5,7 @@ VisualStudioVersion = 17.14.35806.103
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "dotnetexam.front", "dotnetexam.client\dotnetexam.front.esproj", "{471524CA-340B-A3AD-56CB-2A2D2CD23081}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetExam.Bussiness", "DotNetExam.Server\DotNetExam.Bussiness.csproj", "{F563762E-00EA-4C7B-A11D-8F262754A358}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetExam.Business", "DotNetExam.Server\DotNetExam.Business.csproj", "{F563762E-00EA-4C7B-A11D-8F262754A358}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C84508F8-FBAD-4C65-81DE-B502FF060F9B} = {C84508F8-FBAD-4C65-81DE-B502FF060F9B}
 	EndProjectSection
