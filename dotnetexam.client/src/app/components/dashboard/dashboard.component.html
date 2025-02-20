@@ -2,5 +2,16 @@
   <h2>Bienvenido, {{ usuario.nombre }}!</h2>
   <p>Tu correo electrónico: {{ usuario.email }}</p>
 
+  <!-- Lista de artículos -->
+  <div class="articulo-list">
+    <h3>Productos Disponibles</h3>
+    <div *ngFor="let articulo of articulos" class="articulo-item">
+      <h4>{{ articulo.Descripcion }}</h4>
+      <p>Precio: ${{ articulo.Precio }}</p>
+      <p>Stock: {{ articulo.Stock }}</p>
+      <button (click)="addToCart(articulo)">Agregar al Carrito</button>
+    </div>
+  </div>
+
   <button (click)="logout()">Cerrar Sesión</button>
 </div>

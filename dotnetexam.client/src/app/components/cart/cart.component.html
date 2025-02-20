@@ -1,0 +1,14 @@
+<div class="cart-container">
+    <h2>Tu Carrito</h2>
+  
+    <div *ngIf="cartItems.length === 0" class="empty-cart">
+      <p>No hay artículos en tu carrito.</p>
+    </div>
+  
+    <div *ngFor="let item of cartItems" class="cart-item">
+      <span>{{ item.Descripcion }} ({{ item.Stock }})</span>
+      <button (click)="removeFromCart(item.Id)">Eliminar</button>
+    </div>
+  
+    <button *ngIf="cartItems.length > 0" (click)="checkout()">Finalizar Compra</button>
+  </div>
