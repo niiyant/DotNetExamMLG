@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 export class DashboardComponent implements OnInit {
   usuario: any = null;
   articulos: Articulo[] = [];
+  cartItemCount: number = 0;
 
   constructor(private authService: AuthService,
     private router: Router,
@@ -27,16 +28,32 @@ export class DashboardComponent implements OnInit {
       nombre: 'Usuario de Prueba', 
       email: 'usuario@example.com'
     };
-    this.http.get<Articulo[]>('https://localhost:7007/api/articulo')
+    this.http.get<any[]>('https://localhost:7007/api/articulo')
       .subscribe((data) => {
-        this.articulos = data; 
+        // Mapear los datos para que coincidan con el modelo
+        this.articulos = data.map(item => ({
+          Id: item.id,
+          Codigo: item.codigo,
+          Descripcion: item.descripcion,
+          Precio: item.precio,
+          Imagen: item.imagen,
+          Stock: item.stock
+        }));
       });
+      this.updateCartItemCount();
+
+  }
+  updateCartItemCount(): void {
+    this.cartItemCount = this.cartService.getCartItems().length;
   }
   addToCart(articulo: Articulo): void {
     this.cartService.addToCart(articulo); 
+    this.updateCartItemCount();
     alert(`${articulo.Descripcion} agregado al carrito`);
   }
-
+  goToCart(): void {
+    this.router.navigate(['/cart']);
+  }
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);

@@ -30,11 +30,11 @@ export class CartComponent {
   }
 
   checkout(): void {
-    const clienteId = parseInt(this.authService.getToken() || '0', 10); 
+    const clienteId = this.authService.getUserIdFromToken();
     const fecha = new Date();
 
     this.cartItems.forEach((item) => {
-      this.http.post('https://localhost:7007/api/cliente-articulo/comprar', {
+      this.http.post('https://localhost:7007/api/clientearticulo/comprar', {
         ClienteId: clienteId,
         ArticuloId: item.Id,
         Fecha: fecha

@@ -1,6 +1,13 @@
+<!-- src/app/components/dashboard/dashboard.component.html -->
 <div class="dashboard-container">
   <h2>Bienvenido, {{ usuario.nombre }}!</h2>
   <p>Tu correo electrónico: {{ usuario.email }}</p>
+
+  <!-- Botón del Carrito -->
+  <div class="cart-icon" (click)="goToCart()">
+    🛒 Carrito 
+    <span *ngIf="cartItemCount > 0" class="cart-count">{{ cartItemCount }}</span>
+  </div>
 
   <!-- Lista de artículos -->
   <div class="articulo-list">
