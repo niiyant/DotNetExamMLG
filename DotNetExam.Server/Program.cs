@@ -39,6 +39,17 @@ builder.Services.AddScoped<IArticuloService, ArticuloService>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<ITiendaArticuloService, TiendaArticuloService>();
 builder.Services.AddScoped<IClienteArticuloService, ClienteArticuloService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        policy =>
+        {
+            policy.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        });
+});
 var app = builder.Build();
 
 app.UseDefaultFiles();
@@ -52,6 +63,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAll");
 
 app.UseAuthentication();
 
