@@ -18,6 +18,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<ITiendaService, TiendaService>();
 builder.Services.AddScoped<IArticuloService, ArticuloService>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
+builder.Services.AddScoped<ITiendaArticuloService, TiendaArticuloService>();
+builder.Services.AddScoped<IClienteArticuloService, ClienteArticuloService>();
 var app = builder.Build();
 
 app.UseDefaultFiles();
