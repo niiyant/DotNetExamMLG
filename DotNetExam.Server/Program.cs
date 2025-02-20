@@ -7,7 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-var key = "secret";
+var key = builder.Configuration["Jwt:Key"];
 // Add services to the container.
 builder.Services.AddAuthentication(options =>
 {

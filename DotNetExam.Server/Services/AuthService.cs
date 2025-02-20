@@ -13,10 +13,10 @@ public class AuthService : IAuthService
     private readonly ApplicationDbContext _context;
     private readonly string _key;
 
-    public AuthService(ApplicationDbContext context)
+    public AuthService(ApplicationDbContext context, IConfiguration configuration)
     {
         _context = context;
-        _key = "secret"; // Misma clave usada en Program.cs
+        _key = configuration.GetValue<string>("Jwt:Key") ?? throw new ArgumentNullException(nameof(configuration), "Jwt:Key is not configured.");
     }
 
     public string Login(string email, string password)
@@ -31,8 +31,8 @@ public class AuthService : IAuthService
         {
             Subject = new ClaimsIdentity(new Claim[]
             {
-                new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
-                new Claim(ClaimTypes.Email, usuario.Email)
+                        new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
+                        new Claim(ClaimTypes.Email, usuario.Email)
             }),
             Expires = DateTime.UtcNow.AddDays(7),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -54,7 +54,7 @@ public class AuthService : IAuthService
 
     private bool VerifyPasswordHash(string password, byte[] storedHash, byte[] storedSalt)
     {
-        using (var hmac = new System.Security.Cryptography.HMACSHA512(storedSalt)) 
+        using (var hmac = new System.Security.Cryptography.HMACSHA512(storedSalt))
         {
             var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
             return computedHash.SequenceEqual(storedHash);
@@ -65,7 +65,7 @@ public class AuthService : IAuthService
     {
         using (var hmac = new System.Security.Cryptography.HMACSHA512())
         {
-            passwordSalt = hmac.Key; 
+            passwordSalt = hmac.Key;
             passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
         }
     }
