@@ -22,7 +22,7 @@ public class AuthService : IAuthService
     public string Login(string email, string password)
     {
         var usuario = _context.Usuarios.FirstOrDefault(u => u.Email == email);
-        if (usuario == null || !VerifyPasswordHash(password, usuario.PasswordHash))
+        if (usuario == null || !VerifyPasswordHash(password, usuario.PasswordHash, usuario.PasswordSalt))
             return null;
 
         var tokenHandler = new JwtSecurityTokenHandler();
@@ -31,8 +31,8 @@ public class AuthService : IAuthService
         {
             Subject = new ClaimsIdentity(new Claim[]
             {
-                    new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
-                    new Claim(ClaimTypes.Email, usuario.Email)
+                new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
+                new Claim(ClaimTypes.Email, usuario.Email)
             }),
             Expires = DateTime.UtcNow.AddDays(7),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -43,28 +43,30 @@ public class AuthService : IAuthService
 
     public void Register(Usuario usuario, string password)
     {
-        byte[] passwordHash;
-        CreatePasswordHash(password, out passwordHash);
+        byte[] passwordHash, passwordSalt;
+        CreatePasswordHash(password, out passwordHash, out passwordSalt);
         usuario.PasswordHash = passwordHash;
+        usuario.PasswordSalt = passwordSalt; // Guarda el salt
 
         _context.Usuarios.Add(usuario);
         _context.SaveChanges();
     }
 
-    private bool VerifyPasswordHash(string password, byte[] storedHash)
+    private bool VerifyPasswordHash(string password, byte[] storedHash, byte[] storedSalt)
     {
-        using (var hmac = new System.Security.Cryptography.HMACSHA512())
+        using (var hmac = new System.Security.Cryptography.HMACSHA512(storedSalt)) 
         {
-            var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
             return computedHash.SequenceEqual(storedHash);
         }
     }
 
-    private void CreatePasswordHash(string password, out byte[] passwordHash)
+    private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
     {
         using (var hmac = new System.Security.Cryptography.HMACSHA512())
         {
-            passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            passwordSalt = hmac.Key; 
+            passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
         }
     }
 }
