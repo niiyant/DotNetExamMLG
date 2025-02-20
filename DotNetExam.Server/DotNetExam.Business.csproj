@@ -27,8 +27,4 @@
     <ProjectReference Include="..\DotNetExam.Data\DotNetExam.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\Interfaces\" />
-  </ItemGroup>
-
 </Project>
