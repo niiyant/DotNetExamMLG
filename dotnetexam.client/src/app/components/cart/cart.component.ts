@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Articulo } from '../../models/articulo.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -19,7 +19,7 @@ export class CartComponent {
   constructor(
     private cartService: CartService,
     private authService: AuthService,
-    private http: HttpClient
+    private http: HttpClient,private router: Router
   ) {
     this.cartItems = this.cartService.getCartItems();
   }
@@ -44,5 +44,8 @@ export class CartComponent {
         this.cartItems = [];
       });
     });
+  }
+  goToDashboard(): void {
+    this.router.navigate(['/dashboard']);
   }
 }

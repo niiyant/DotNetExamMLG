@@ -12,13 +12,15 @@ import { FormsModule } from '@angular/forms';
 })
 export class RegisterComponent {
   nombre = '';
+  apellidos = ''; 
+  direccion = ''; 
   email = '';
   password = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit(): void {
-    this.authService.register(this.nombre, this.email, this.password).subscribe(
+    this.authService.register(this.nombre, this.apellidos, this.direccion, this.email, this.password).subscribe(
       () => {
         alert('Usuario registrado exitosamente');
         this.router.navigate(['/login']);
