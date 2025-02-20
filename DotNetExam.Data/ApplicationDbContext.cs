@@ -1,4 +1,5 @@
 ﻿using DotNetExam.Data.Models;
+using DotNetExam.Entities.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DotNetExam.Data
@@ -15,6 +16,7 @@ namespace DotNetExam.Data
         public DbSet<Articulo> Articulos { get; set; }
         public DbSet<TiendaArticulo> TiendaArticulos { get; set; }
         public DbSet<ClienteArticulo> ClienteArticulos { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
